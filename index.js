@@ -5,7 +5,7 @@ const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
-const { validate } = require("@babel/types");
+const { validate, isPureish } = require("@babel/types");
 const { isModuleNamespaceObject } = require("util/types");
 
 const team = [];
@@ -58,21 +58,50 @@ const promptUser = () => {
       },
     },
     {
+      //only functions when manager is picked
       type: "input",
       name: "officeNumber",
       message: "What is the Manager's office number?",
       when: (input) => input.role === "Manager",
       validate: (officeNumber) => {
-          //not a number
+        //not a number
         if (isNaN(officeNumber)) {
           console.log("Enter Manager's office number");
           return false;
         } else {
           return true;
         }
-      }
+      },
     },
-  ])
+    {
+        //only functions when engineer is picked
+      type: "input",
+      name: "github",
+      message: "Enter Engineer's Github username",
+      when: (input) => input.role === "Engineer",
+      validate: (github) => {
+        if (github) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    },
+    {
+        type:"input",
+        name:"glink",
+        message:"Enter Engineer's GitHub Link",
+        when: (input) => input.role === "Engineer",
+        validate: (glink) => {
+            if (glink) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+    }
+  ]);
 };
 
 const writeFile = (fileContent) => {
@@ -84,8 +113,8 @@ const writeFile = (fileContent) => {
     resolve({
       ok: true,
       message: "File created!",
-    })
-  })
+    });
+  });
 };
 promptUser()
   .then((team) => {
