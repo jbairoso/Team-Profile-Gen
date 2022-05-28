@@ -56,9 +56,28 @@ const promptUser = () => {
         }
       },
     },
-  ]);
+  ])
 };
 
-promptUser().then((team) => {
-  return generatePage(team);
-});
+const writeFile = (fileContent) => {
+  fs.writeFile("./dist/index.html", fileContent, (err) => {
+    if (err) {
+      reject(err);
+      return;
+    }
+    resolve({
+      ok: true,
+      message: "File created!",
+    })
+  })
+};
+promptUser()
+  .then((team) => {
+    return generatePage(team);
+  })
+  .then((htmlpage) => {
+    return writeFile(htmlpage);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
