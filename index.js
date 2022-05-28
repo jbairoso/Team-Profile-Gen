@@ -1,11 +1,12 @@
 const inquirer = require("inquirer");
-const { writeFile } = require("./src/write-file.js");
 const generatePage = require("./src/page-template");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
+const { validate } = require("@babel/types");
+const { isModuleNamespaceObject } = require("util/types");
 
 const team = [];
 
@@ -55,6 +56,21 @@ const promptUser = () => {
           return false;
         }
       },
+    },
+    {
+      type: "input",
+      name: "officeNumber",
+      message: "What is the Manager's office number?",
+      when: (input) => input.role === "Manager",
+      validate: (officeNumber) => {
+          //not a number
+        if (isNaN(officeNumber)) {
+          console.log("Enter Manager's office number");
+          return false;
+        } else {
+          return true;
+        }
+      }
     },
   ])
 };
