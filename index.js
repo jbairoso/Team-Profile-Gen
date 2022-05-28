@@ -5,6 +5,7 @@ const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
+const { userInfo } = require("os");
 
 const team = [];
 
@@ -112,7 +113,8 @@ const promptUser = () => {
         default: false,
       },
     ])
-    .then((promptUser) => {
+
+    .then(userInfo => {
       let {
         role,
         name,
@@ -123,7 +125,7 @@ const promptUser = () => {
         glink,
         school,
         addRole,
-      } = promptUser;
+      } = userInfo;
       let employeeRole;
 
       if (role === "Manager") {
@@ -140,13 +142,13 @@ const promptUser = () => {
       team.push(employeeRole);
       //option to add additional employee
       if (addRole) {
-        return userPrompt(team);
+        return promptUser(team);
       } else {
         return team;
       }
     })
 };
-
+//will add the user input into index.html
 const writeFile = (fileContent) => {
   fs.writeFile("./dist/index.html", fileContent, (err) => {
     if (err) {
@@ -159,6 +161,7 @@ const writeFile = (fileContent) => {
     })
   })
 };
+//initiates user input and creates page using user data
 promptUser()
   .then((team) => {
     return generatePage(team);
