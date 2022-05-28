@@ -14,18 +14,31 @@ const promptUser = () => {
     {
       type: "list",
       name: "role",
-      message: "Please select the employee's role (Required)",
+      message: "Please select the employee's role",
       choices: ["Manager", "Engineer", "Intern"],
     },
     {
       type: "input",
-      name: "id",
-      message: "Please enter your employee ID",
+      name: "name",
+      message: "Please enter Employee's name (Required)",
       validate: (nameInput) => {
         if (nameInput) {
           return true;
         } else {
-          console.log("Please enter your Name!");
+          console.log("Please enter your Employee's name!");
+          return false;
+        }
+      },
+    },
+    {
+      type: "input",
+      name: "id",
+      message: "Please enter employee ID",
+      validate: (nameInput) => {
+        if (nameInput) {
+          return true;
+        } else {
+          console.log("Please enter Employee's ID!");
           return false;
         }
       },
@@ -33,7 +46,15 @@ const promptUser = () => {
     {
       type: "input",
       name: "email",
-      message: "Please enter your email",
+      message: "Please enter Employee's email (Required)",
+      validate: (nameInput) => {
+        if (nameInput) {
+          return true;
+        } else {
+          console.log("Please enter Employee's email!");
+          return false;
+        }
+      },
     },
   ]);
 };
