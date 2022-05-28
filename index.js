@@ -5,103 +5,146 @@ const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
-const { validate, isPureish } = require("@babel/types");
-const { isModuleNamespaceObject } = require("util/types");
 
 const team = [];
 
 const promptUser = () => {
-  return inquirer.prompt([
-    {
-      type: "list",
-      name: "role",
-      message: "Please select the employee's role",
-      choices: ["Manager", "Engineer", "Intern"],
-    },
-    {
-      type: "input",
-      name: "name",
-      message: "Please enter Employee's name (Required)",
-      validate: (nameInput) => {
-        if (nameInput) {
-          return true;
-        } else {
-          console.log("Please enter your Employee's name!");
-          return false;
+  return inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "role",
+        message: "Please select the employee's role",
+        choices: ["Manager", "Engineer", "Intern"],
+      },
+      {
+        type: "input",
+        name: "name",
+        message: "Please enter Employee's name (Required)",
+        validate: (nameInput) => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("Please enter your Employee's name!");
+            return false;
+          }
         }
       },
-    },
-    {
-      type: "input",
-      name: "id",
-      message: "Please enter employee ID",
-      validate: (nameInput) => {
-        if (nameInput) {
-          return true;
-        } else {
-          console.log("Please enter Employee's ID!");
-          return false;
+      {
+        type: "input",
+        name: "id",
+        message: "Please enter employee ID",
+        validate: (nameInput) => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("Please enter Employee's ID!");
+            return false;
+          }
         }
       },
-    },
-    {
-      type: "input",
-      name: "email",
-      message: "Please enter Employee's email (Required)",
-      validate: (nameInput) => {
-        if (nameInput) {
-          return true;
-        } else {
-          console.log("Please enter Employee's email!");
-          return false;
+      {
+        type: "input",
+        name: "email",
+        message: "Please enter Employee's email (Required)",
+        validate: (nameInput) => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("Please enter Employee's email!");
+            return false;
+          }
         }
       },
-    },
-    {
-      //only functions when manager is picked
-      type: "input",
-      name: "officeNumber",
-      message: "What is the Manager's office number?",
-      when: (input) => input.role === "Manager",
-      validate: (officeNumber) => {
-        //not a number
-        if (isNaN(officeNumber)) {
-          console.log("Enter Manager's office number");
-          return false;
-        } else {
-          return true;
+      {
+        //only functions when manager is picked
+        type: "input",
+        name: "officeNumber",
+        message: "What is the Manager's office number?",
+        when: (input) => input.role === "Manager",
+        validate: (officeNumber) => {
+          //not a number
+          if (isNaN(officeNumber)) {
+            console.log("Enter Manager's office number");
+            return false;
+          } else {
+            return true;
+          }
         }
       },
-    },
-    {
+      {
         //only functions when engineer is picked
-      type: "input",
-      name: "github",
-      message: "Enter Engineer's Github username",
-      when: (input) => input.role === "Engineer",
-      validate: (github) => {
-        if (github) {
-          return true;
-        } else {
-          return false;
+        type: "input",
+        name: "github",
+        message: "Enter Engineer's Github username",
+        when: (input) => input.role === "Engineer",
+        validate: (github) => {
+          if (github) {
+            return true;
+          } else {
+            return false;
+          }
         }
       },
-    },
-    {
-        type:"input",
-        name:"glink",
-        message:"Enter Engineer's GitHub Link",
+      {
+        type: "input",
+        name: "glink",
+        message: "Enter Engineer's GitHub Link",
         when: (input) => input.role === "Engineer",
         validate: (glink) => {
-            if (glink) {
-                return true;
-            } else {
-                return false;
-            }
+          if (glink) {
+            return true;
+          } else {
+            return false;
+          }
         }
-        
-    }
-  ]);
+      },
+      {
+        type: "input",
+        name: "school",
+        message: "Enter Intern's school name",
+        when: (input) => input.role === "Intern",
+      },
+      {
+        type: "confirm",
+        name: "addRole",
+        message: "Would you like to add another employee?",
+        default: false,
+      },
+    ])
+    .then((promptUser) => {
+      let {
+        role,
+        name,
+        id,
+        email,
+        officeNumber,
+        github,
+        glink,
+        school,
+        addRole,
+      } = promptUser;
+      let employeeRole;
+
+      if (role === "Manager") {
+        employeeRole = new Manager(name, id, email, officeNumber);
+        console.log(employeeRole);
+      } else if (role === "Engineer") {
+        employeeRole = new Engineer(name, id, email, github, glink);
+        console.log(employeeRole);
+      } else if (role === "Intern") {
+        employeeRole = new Intern(name, id, email, school);
+        console.log(employeeRole);
+      }
+      //creates a string
+      team.push(employeeRole);
+      //option to add additional employee
+      if (addRole) {
+        return userPrompt(team);
+      } else {
+        return team;
+      }
+    })
 };
 
 const writeFile = (fileContent) => {
@@ -113,8 +156,8 @@ const writeFile = (fileContent) => {
     resolve({
       ok: true,
       message: "File created!",
-    });
-  });
+    })
+  })
 };
 promptUser()
   .then((team) => {
