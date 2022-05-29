@@ -46,16 +46,16 @@ generateHTML = (info) => {
     const role = employee.getRole();
 
     if (role === "Manager") {
-      const managerInfo = newManager(employee);
+      const managerInfo = generateManager(employee);
       pageArray.push(managerInfo);
     }
 
     if (role === "Engineer") {
-      const engineerInfo = newEngineer(employee);
+      const engineerInfo = generateEngineer(employee);
       pageArray.push(engineerInfo);
     }
     if (role === "Intern") {
-      const internInfo = newIntern(employee);
+      const internInfo = generateIntern(employee);
       pageArray.push = internInfo;
     }
   }
@@ -80,6 +80,24 @@ const newManager = function (manager) {
   </div>
 </div>
 `;
-}
+};
+
+const newEngineer = function (engineer) {
+  return `
+    <div class="col-4 mt-3">
+        <div class="card">
+            <div class="card-header" >
+                <h2 class="text-warning text-center">${engineer.name}</h2>
+                <h3 class="text-warning text-center"><img src="./images/coder.png" alt="coder">Engineer</h3>
+            </div>
+            <div class="card-body">
+                <p class="employee-id text-center">Employee ID: ${engineer.id}</p>
+                <p class="email-address text-center">Email Address: <a href="mailto:${engineer.email}">${engineer.email}</a></p>
+                <p class="github text-center">GitHub Username: <a href="https://github.com/${engineer.glink}" target="_blank">${engineer.github}</a></p>
+            </div>
+        </div>
+    </div>
+    `;
+};
 
 module.exports = generateHTML;
