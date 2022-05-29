@@ -1,11 +1,10 @@
 const inquirer = require("inquirer");
-const generatePage = require("./src/page-template");
+const generateHTML = require("./src/page-template");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
-const { userInfo } = require("os");
 
 const team = [];
 
@@ -165,7 +164,7 @@ const writeFile = (fileContent) => {
 //initiates user input and creates page using user data
 promptUser()
   .then((team) => {
-    return generatePage(team);
+    return generateHTML(team);
   })
   .then((htmlpage) => {
     return writeFile(htmlpage);
