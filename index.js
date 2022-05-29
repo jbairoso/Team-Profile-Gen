@@ -48,13 +48,14 @@ const promptUser = () => {
         type: "input",
         name: "email",
         message: "Please enter Employee's email (Required)",
-        validate: (nameInput) => {
-          if (nameInput) {
-            return true;
-          } else {
-            console.log("Please enter Employee's email!");
-            return false;
-          }
+        validate: emailInput => {
+            valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailInput)
+            if (valid) {
+                return true;
+            } else {
+                console.log('Please enter a valid Email address.');
+                return false;
+            }
         }
       },
       {
