@@ -150,15 +150,13 @@ const promptUser = () => {
 };
 //will add the user input into index.html
 const writeFile = data => {
-  fs.writeFile("./index.html", data, (err) => {
+  fs.writeFile("./dist/index.html", data, (err) => {
     if (err) {
-      reject(err);
+      console.log(err);
       return;
+    }else{
+        console.log("Your team profiles have been generated!")
     }
-    resolve({
-      ok: true,
-      message: "File created!",
-    })
   })
 };
 //initiates user input and creates page using user data

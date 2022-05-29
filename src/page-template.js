@@ -36,10 +36,10 @@ const generateTeam = function (teamCards) {
     crossorigin="anonymous"></script>
 </html>
 `;
-};
+}
 
 generateHTML = (info) => {
-  cards = [];
+  cardsArr = [];
 
   for (let i = 0; i < info.length; i++) {
     const employee = info[i];
@@ -47,30 +47,30 @@ generateHTML = (info) => {
 
     if (role === "Manager") {
       const managerInfo = generateManager(employee);
-      pageArray.push(managerInfo);
+      cardsArr.push(managerInfo);
     }
 
     if (role === "Engineer") {
       const engineerInfo = generateEngineer(employee);
-      pageArray.push(engineerInfo);
+      cardsArr.push(engineerInfo);
     }
     if (role === "Intern") {
       const internInfo = generateIntern(employee);
-      pageArray.push = internInfo;
+      cardsArr = internInfo;
     }
   }
-  const teamCards = pageArray.join("");
+  const teamCards = cardsArr.join("");
   const createTeam = generateTeam(teamCards);
   return createTeam;
-};
+}
 
-const newManager = function (manager) {
+const generateManager = function (manager) {
   return `
   <div class="col-4 mt-3">
   <div class="card">
       <div class="card-header">
           <h2 class="text-warning text-center">${manager.name}</h2>
-          <h3 class="text-warning text-center"><img src="./images/mug.png" alt="coffee cup">Manager</h3>
+          <h3 class="text-warning text-center">Manager</h3>
       </div>
       <div class="card-body">
           <p class="employee-id text-center">Employee ID: ${manager.id}</p>
@@ -80,15 +80,15 @@ const newManager = function (manager) {
   </div>
 </div>
 `;
-};
+}
 
-const newEngineer = function (engineer) {
+const generateEngineer = function (engineer) {
   return `
     <div class="col-4 mt-3">
         <div class="card">
             <div class="card-header" >
                 <h2 class="text-warning text-center">${engineer.name}</h2>
-                <h3 class="text-warning text-center"><img src="./images/coder.png" alt="coder">Engineer</h3>
+                <h3 class="text-warning text-center">Engineer</h3>
             </div>
             <div class="card-body">
                 <p class="employee-id text-center">Employee ID: ${engineer.id}</p>
@@ -98,6 +98,24 @@ const newEngineer = function (engineer) {
         </div>
     </div>
     `;
-};
+}
+
+const generateIntern = function (intern) {
+  return `
+    <div class="col-4 mt-3">
+        <div class="card">
+            <div class="card-header" >
+                <h2 class="text-warning text-center">${intern.name}</h2>
+                <h3 class="text-warning text-center">Intern</h3>
+            </div>
+            <div class="card-body">
+                <p class="employee-id text-center">Employee ID: ${intern.id}</p>
+                <p class="email-address text-center">Email Address: <a href="mailto:${intern.email}">${intern.email}</a></p>
+                <p class="school text-center">School: ${intern.school}</p>
+            </div>
+        </div>
+    </div>
+    `;
+}
 
 module.exports = generateHTML;
