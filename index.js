@@ -164,12 +164,12 @@ const writeFile = (fileContent) => {
 };
 //initiates user input and creates page using user data
 promptUser()
-  .then((team) => {
+  .then(team => {
     return generatePage(team);
   })
-  .then((htmlpage) => {
+  .then(htmlpage => {
     return writeFile(htmlpage);
   })
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   });
