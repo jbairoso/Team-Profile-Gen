@@ -1,5 +1,3 @@
-const { info } = require("console");
-
 const generateTeam = function (teamCards) {
   return `
     <!DOCTYPE html>
@@ -38,14 +36,50 @@ const generateTeam = function (teamCards) {
     crossorigin="anonymous"></script>
 </html>
 `;
-}
+};
 
-generateHTML = (info) =>{
-    cards=[];
+generateHTML = (info) => {
+  cards = [];
 
-    for(let i=0; i < info.length;i++){
-        const employee=info[i];
-        const role=employee.getRole();
+  for (let i = 0; i < info.length; i++) {
+    const employee = info[i];
+    const role = employee.getRole();
+
+    if (role === "Manager") {
+      const managerInfo = newManager(employee);
+      pageArray.push(managerInfo);
     }
+
+    if (role === "Engineer") {
+      const engineerInfo = newEngineer(employee);
+      pageArray.push(engineerInfo);
+    }
+    if (role === "Intern") {
+      const internInfo = newIntern(employee);
+      pageArray.push = internInfo;
+    }
+  }
+  const teamCards = pageArray.join("");
+  const createTeam = generateTeam(teamCards);
+  return createTeam;
+};
+
+const newManager = function (manager) {
+  return `
+  <div class="col-4 mt-3">
+  <div class="card">
+      <div class="card-header">
+          <h2 class="text-warning text-center">${manager.name}</h2>
+          <h3 class="text-warning text-center"><img src="./images/mug.png" alt="coffee cup">Manager</h3>
+      </div>
+      <div class="card-body">
+          <p class="employee-id text-center">Employee ID: ${manager.id}</p>
+          <p class="email-address text-center">Email Address: <a href="mailto:${manager.email}">${manager.email}</a></p>
+          <p class="office-number text-center">Office Number: ${manager.officeNumber}</p>
+      </div>
+  </div>
+</div>
+`;
 }
+
 module.exports = generateHTML;

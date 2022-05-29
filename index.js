@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const generateHTML = require("./src/page-template");
+const generateHTML = require("./src/page-template.js");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
@@ -149,8 +149,8 @@ const promptUser = () => {
     })
 };
 //will add the user input into index.html
-const writeFile = (fileContent) => {
-  fs.writeFile("./dist/index.html", fileContent, (err) => {
+const writeFile = data => {
+  fs.writeFile("./index.html", data, (err) => {
     if (err) {
       reject(err);
       return;
