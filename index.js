@@ -1,11 +1,10 @@
 const inquirer = require("inquirer");
-const generatePage = require("./src/page-template");
+const generateHTML = require("./src/generateHTML.js");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
-const { userInfo } = require("os");
 
 const team = [];
 
@@ -150,16 +149,14 @@ const promptUser = () => {
     })
 };
 //will add the user input into index.html
-const writeFile = (fileContent) => {
-  fs.writeFile("./dist/index.html", fileContent, (err) => {
+const writeFile = data => {
+  fs.writeFile("./dist/index.html", data, (err) => {
     if (err) {
-      reject(err);
+      console.log(err);
       return;
+    }else{
+        console.log("Your team profiles have been generated!")
     }
-    resolve({
-      ok: true,
-      message: "File created!",
-    })
   })
 };
 //initiates user input and creates page using user data
