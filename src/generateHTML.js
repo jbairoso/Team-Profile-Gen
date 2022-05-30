@@ -113,7 +113,7 @@ generateHTML = (info) => {
       }
       if (role === "Intern") {
         const internInfo = generateIntern(employee);
-        cardsArr = internInfo;
+        cardsArr.push(internInfo);
       }
     }
     const teamCards = cardsArr.join('');
