@@ -38,32 +38,7 @@ const generateTeam = function (teamCards) {
 `;
 }
 
-generateHTML = (info) => {
-  cardsArr = [];
-
-  for (let i = 0; i < info.length; i++) {
-    const employee = info[i];
-    const role = employee.getRole();
-
-    if (role === "Manager") {
-      const managerInfo = generateManager(employee);
-      cardsArr.push(managerInfo);
-    }
-
-    if (role === "Engineer") {
-      const engineerInfo = generateEngineer(employee);
-      cardsArr.push(engineerInfo);
-    }
-    if (role === "Intern") {
-      const internInfo = generateIntern(employee);
-      cardsArr = internInfo;
-    }
-  }
-  const teamCards = cardsArr.join("");
-  const createTeam = generateTeam(teamCards);
-  return createTeam;
-}
-
+//creating a manager card using user input
 const generateManager = function (manager) {
   return `
   <div class="col-4 mt-3">
@@ -82,6 +57,7 @@ const generateManager = function (manager) {
 `;
 }
 
+//creating a engineer card using user input
 const generateEngineer = function (engineer) {
   return `
     <div class="col-4 mt-3">
@@ -100,6 +76,7 @@ const generateEngineer = function (engineer) {
     `;
 }
 
+//creating a intern card using user input
 const generateIntern = function (intern) {
   return `
     <div class="col-4 mt-3">
@@ -118,4 +95,29 @@ const generateIntern = function (intern) {
     `;
 }
 
+generateHTML = (info) => {
+    cardsArr = [];
+  
+    for (let i = 0; i < info.length; i++) {
+      const employee = info[i];
+      const role = employee.getRole();
+  
+      if (role === "Manager") {
+        const managerInfo = generateManager(employee);
+        cardsArr.push(managerInfo);
+      }
+  
+      if (role === "Engineer") {
+        const engineerInfo = generateEngineer(employee);
+        cardsArr.push(engineerInfo);
+      }
+      if (role === "Intern") {
+        const internInfo = generateIntern(employee);
+        cardsArr = internInfo;
+      }
+    }
+    const teamCards = cardsArr.join('');
+    const createTeam = generateTeam(teamCards);
+    return createTeam;
+  }
 module.exports = generateHTML;

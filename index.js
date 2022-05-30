@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const generateHTML = require("./src/page-template.js");
+const generateHTML = require("./src/generateHTML.js");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
@@ -161,12 +161,12 @@ const writeFile = data => {
 };
 //initiates user input and creates page using user data
 promptUser()
-  .then((team) => {
+  .then(team => {
     return generateHTML(team);
   })
-  .then((htmlpage) => {
+  .then(htmlpage => {
     return writeFile(htmlpage);
   })
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   });
