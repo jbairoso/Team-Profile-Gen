@@ -27,6 +27,6 @@ THEN I exit the application, and the HTML is generated</br>
 ## Video Tutorial
 https://drive.google.com/file/d/1bLwgB1NheVOfS2p_Rw5rAAH7ouSgzH1h/view
 ## Mock up
-image.png
+![ScreenShot](/images/HTML_SS.png)
 ## Credit
 Made with ❣️ by Jeralyn Airoso
