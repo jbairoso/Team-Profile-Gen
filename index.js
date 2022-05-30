@@ -162,7 +162,7 @@ const writeFile = data => {
 //initiates user input and creates page using user data
 promptUser()
   .then(team => {
-    return generatePage(team);
+    return generateHTML(team);
   })
   .then(htmlpage => {
     return writeFile(htmlpage);
